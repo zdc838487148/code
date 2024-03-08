@@ -57,6 +57,7 @@ public class FaasEntry extends AbstractEntry {
 		   result.put("success",false);
 		   result.put("result",null);
 		   result.put("error",e.getMessage());
+		   
 		   return result;
 		}
 
