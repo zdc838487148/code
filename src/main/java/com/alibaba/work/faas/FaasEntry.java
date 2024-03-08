@@ -46,19 +46,19 @@ public class FaasEntry extends AbstractEntry {
 		/**
 		 * 示例1, 在doYourBusiness方法里编写您的业务代码, 也可以将业务代码封装到其他Class源文件或方法里, cloudIDE和您的本地IDE基本无区别。
 		 */
-		// JSONObject result = new JSONObject();
-		// try {
-		//    Object businessResult = doYourBusiness(input);
-		//    result.put("success",true);
-		//    result.put("result",businessResult);
-		//    result.put("error","");
-		//    return result;
-		// } catch (Exception e) {
-		//    result.put("success",false);
-		//    result.put("result",null);
-		//    result.put("error",e.getMessage());
-		//    return result;
-		// }
+		JSONObject result = new JSONObject();
+		try {
+		   Object businessResult = doYourBusiness(input);
+		   result.put("success",true);
+		   result.put("result",businessResult);
+		   result.put("error","");
+		   return result;
+		} catch (Exception e) {
+		   result.put("success",false);
+		   result.put("result",null);
+		   result.put("error",e.getMessage());
+		   return result;
+		}
 
 		/**
 		 *示例2, 调用宜搭连接器
@@ -97,12 +97,12 @@ public class FaasEntry extends AbstractEntry {
 		/**
 		 * 返回的JSONObject并不是一定要带success、result、error, 下面的代码只是示例, 具体返回哪些key-value由您自己决定, 尽量与您在宜搭连接器工厂里配置的出参结构保持一致即可
 		 */
-		JSONObject result = new JSONObject();
-		result.put("success",true);
-		result.put("result","恭喜您, 成功调用宜搭FASS连接器!");
-		result.put("error","");
+		// JSONObject result = new JSONObject();
+		// result.put("success",true);
+		// result.put("result","恭喜您, 成功调用宜搭FASS连接器!");
+		// result.put("error","");
 
-		return result;
+		// return result;
 	}
 
 	/**
