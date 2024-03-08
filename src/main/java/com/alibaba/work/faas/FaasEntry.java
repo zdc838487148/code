@@ -14,6 +14,7 @@ import com.alibaba.work.faas.common.FaasInputs;
 import com.alibaba.work.faas.util.DingOpenApiUtil;
 import com.alibaba.work.faas.util.YidaConnectorUtil;
 import com.alibaba.work.faas.util.YidaConnectorUtil.ConnectorTypeEnum;
+import com.alibaba.work.faas.util.DESUtil;
 import com.aliyun.dingtalkyida_1_0.models.BatchSaveFormDataRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -142,12 +143,44 @@ public class FaasEntry extends AbstractEntry {
 	 * @throws Exception
 	 */
 	private Object doYourBusiness(Map<String,Object> input) throws Exception{
-		//取实际的入参
-		String param1 = (String)input.get("参数1");
-		String param2 = (String)input.get("参数2");
-		String paramN = (String)input.get("参数N");
-		//业务处理
-		return "doYourBusiness成功";
+		String content = (String)input.get("content");
+		String password = (String)input.get("password");
+		Integer type = Integer.parseInt(String.valueOf(input.get("type")));
+		/**
+		*在这里编写您的业务代码, 也可以将业务代码封装到其他类或方法里.
+		*/
+		JSONObject result = new JSONObject();
+		result.put("success",false);
+		result.put("result","");
+		result.put("error","");
+		if (0 == type) {
+		/**
+		* 加密
+		*/
+		String encryptContent = DESUtil.encrypt(content, password);
+		System.out.println("加密后的字符串:" + encryptContent);
+		if (StringUtils.isEmpty(encryptContent)) {
+		result.put("error", "empty string got!");
+		return result;
+		}
+		result.put("result", encryptContent);
+		result.put("success", true);
+		}
+		else {
+		/**
+		* 解密
+		*/
+		String encryptContent = DESUtil.decrypt(content, password);
+		System.out.println("解密后的字符串:" + encryptContent);
+		if (StringUtils.isEmpty(encryptContent)) {
+		result.put("error", "empty string got!");
+		return result;
+		}
+		result.put("result", encryptContent);
+		result.put("success", true);
+		}
+		System.out.println("返回:" + JSON.toJSONString(result));
+		return result;
 	}
 
 	/**
